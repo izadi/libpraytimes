@@ -69,9 +69,12 @@ praytimes.IshaSetting = function() {
     return that;
   };
 
+  var DEFAULT = createTwilightAngleBased(0);
+
   return {
     Type: Type,
     createTwilightAngleBased: createTwilightAngleBased,
     createMaghribBased: createMaghribBased,
+    DEFAULT: DEFAULT,
   };
 }();

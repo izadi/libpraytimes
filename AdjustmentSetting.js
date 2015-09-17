@@ -1,7 +1,7 @@
 /* ----< Copyright Block >----
  *
  * Prayer Times Calculator
- *     Setting.js
+ *     AdjustmentSetting.js
  *     Copyright (C) 2015
  *     Mohsen Izadi <m.izadi@gmail.com>
  *
@@ -27,8 +27,8 @@
 
 var praytimes = praytimes || {};
 
-praytimes.Setting = function() {
-  var create = function(method) {
+praytimes.AdjustmentSetting = function() {
+  var create = function() {
     var that = {};
 
     var imsak = praytimes.ImsakSetting.DEFAULT;
@@ -38,25 +38,6 @@ praytimes.Setting = function() {
     var maghrib = praytimes.MaghribSetting.DEFAULT;
     var isha = praytimes.IshaSetting.DEFAULT;
     var midnight = praytimes.MidnightSetting.DEFAULT;
-    var highLats = praytimes.HigherLatitudesSetting.DEFAULT;
-
-    var updateMethod = function() {
-      if (method != praytimes.CalcMethod.CUSTOM) {
-        fajr = method.getFajr();
-        maghrib = method.getMaghrib();
-        isha = method.getIsha();
-        midnight = method.getMidnight();
-      }
-    };
-
-    var getMethod = function() {
-      return method;
-    };
-
-    var setMethod = function(newMethod) {
-      method = newMethod;
-      updateMethod();
-    };
 
     var getImsak = function() {
       return imsak;
@@ -71,8 +52,6 @@ praytimes.Setting = function() {
     };
 
     var setFajr = function(newFajr) {
-      if (method != praytimes.CalcMethod.CUSTOM)
-        return;
       fajr = newFajr;
     };
 
@@ -97,8 +76,6 @@ praytimes.Setting = function() {
     };
 
     var setMaghrib = function(newMaghrib) {
-      if (method != praytimes.CalcMethod.CUSTOM)
-        return;
       maghrib = newMaghrib;
     };
 
@@ -107,8 +84,6 @@ praytimes.Setting = function() {
     };
 
     var setIsha = function(newIsha) {
-      if (method != praytimes.CalcMethod.CUSTOM)
-        return;
       isha = newIsha;
     };
 
@@ -117,23 +92,9 @@ praytimes.Setting = function() {
     };
 
     var setMidnight = function(newMidnight) {
-      if (method != praytimes.CalcMethod.CUSTOM)
-        return;
       midnight = newMidnight;
     };
 
-    var getHighLats = function() {
-      return highLats;
-    };
-
-    var setHighLats = function(newHighLats) {
-      highLats = newHighLats;
-    };
-
-    updateMethod();
-
-    that.getMethod = getMethod;
-    that.setMethod = setMethod;
     that.getImsak = getImsak;
     that.setImsak = setImsak;
     that.getFajr = getFajr;
@@ -148,8 +109,6 @@ praytimes.Setting = function() {
     that.setIsha = setIsha;
     that.getMidnight = getMidnight;
     that.setMidnight = setMidnight;
-    that.getHighLats = getHighLats;
-    that.setHighLats = setHighLats;
 
     return that;
   };

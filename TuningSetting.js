@@ -1,7 +1,7 @@
 /* ----< Copyright Block >----
  *
  * Prayer Times Calculator
- *     MidnightSetting.js
+ *     TuningSetting.js
  *     Copyright (C) 2015
  *     Mohsen Izadi <m.izadi@gmail.com>
  *
@@ -27,14 +27,27 @@
 
 var praytimes = praytimes || {};
 
-praytimes.MidnightSetting = function() {
-  var STANDARD_METHOD = 'STANDARD_METHOD';
-  var HANAFI_METHOD = 'HANAFI_METHOD';
-  var DEFAULT = STANDARD_METHOD;
+praytimes.TuningSetting = function() {
+  var create = function() {
+    var that = {};
+
+    var offset = {};
+
+    var getOffset = function(timePoint) {
+      return offset[timePoint] || 0;
+    };
+
+    var setOffset = function(timePoint, newOffset) {
+      offset[timePoint] = newOffset;
+    };
+
+    that.getOffset = getOffset;
+    that.setOffset = setOffset;
+
+    return that;
+  };
 
   return {
-    STANDARD_METHOD: STANDARD_METHOD,
-    HANAFI_METHOD: HANAFI_METHOD,
-    DEFAULT: DEFAULT,
+    create: create,
   };
 }();

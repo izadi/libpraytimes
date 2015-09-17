@@ -40,12 +40,14 @@ praytimes.AsrSetting = function() {
     return that;
   };
 
-  var STANDARD_METHOD = praytimes.AsrSetting.create(1);
-  var HANAFI_METHOD = praytimes.AsrSetting.create(2);
+  var STANDARD_METHOD = create(1);
+  var HANAFI_METHOD = create(2);
+  var DEFAULT = STANDARD_METHOD;
 
   return {
     create: create,
     STANDARD_METHOD: STANDARD_METHOD,
     HANAFI_METHOD: HANAFI_METHOD,
+    DEFAULT: DEFAULT,
   };
 }();

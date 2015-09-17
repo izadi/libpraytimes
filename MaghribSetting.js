@@ -69,7 +69,7 @@ praytimes.MaghribSetting = function() {
     return that;
   };
 
-  var DEFAULT = createSunsetBased(0);
+  var DEFAULT = createTwilightAngleBased(0);
 
   return {
     Type: Type,

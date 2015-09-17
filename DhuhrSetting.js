@@ -40,7 +40,7 @@ praytimes.DhuhrSetting = function() {
     return that;
   };
 
-  var DEFAULT = praytimes.DhuhrSetting.create(0);
+  var DEFAULT = create(0);
 
   return {
     create: create,

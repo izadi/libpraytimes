@@ -69,7 +69,7 @@ praytimes.ImsakSetting = function() {
     return that;
   };
 
-  var DEFAULT = createTwilightAngleBased(0);
+  var DEFAULT = createFajrBased(10);
 
   return {
     Type: Type,

@@ -31,23 +31,40 @@ praytimes.Coords = function() {
   var create = function(latitude, longitude, elevation) {
     var that = {};
 
+    latitude = latitude || 0;
+    longitude = longitude || 0;
     elevation = elevation || 0;
 
     var getLatitude = function() {
       return latitude;
     };
 
+    var setLatitude = function(newLatitude) {
+      latitude = newLatitude;
+    };
+
     var getLongitude = function() {
       return longitude;
+    };
+
+    var setLongitude = function(newLongitude) {
+      longitude = newLongitude;
     };
 
     var getElevation = function() {
       return elevation;
     };
 
+    var setElevation = function(newElevation) {
+      elevation = newElevation;
+    };
+
     that.getLatitude = getLatitude;
+    that.setLatitude = setLatitude;
     that.getLongitude = getLongitude;
+    that.setLongitude = setLongitude;
     that.getElevation = getElevation;
+    that.setElevation = setElevation;
 
     return that;
   };

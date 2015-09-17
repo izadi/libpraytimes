@@ -40,7 +40,7 @@ praytimes.FajrSetting = function() {
     return that;
   };
 
-  var DEFAULT = praytimes.FajrSetting.create(0);
+  var DEFAULT = create(0);
 
   return {
     create: create,
