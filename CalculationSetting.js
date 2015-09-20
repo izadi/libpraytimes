@@ -27,12 +27,14 @@
 
 var praytimes = praytimes || {};
 
-praytimes.CalculationSetting = function(method) {
-  var create = function() {
+praytimes.CalculationSetting = function() {
+  var create = function(method) {
     var that = {};
 
+    method = method || praytimes.MethodSetting.CUSTOM;
+
     var adjustment = praytimes.AdjustmentSetting.create();
-    var highLats = praytimes.HigherLatitudeSetting.DEFAULT;
+    var highLats = praytimes.HigherLatitudesSetting.DEFAULT;
     var numIterations = 1;
     var tuning = praytimes.TuningSetting.create();
 
@@ -46,6 +48,38 @@ praytimes.CalculationSetting = function(method) {
 
     var getAdjustment = function() {
       return adjustment;
+    };
+
+    var getImsak = function() {
+      return adjustment.getImsak();
+    };
+
+    var getFajr = function() {
+      return method == praytimes.MethodSetting.CUSTOM ? adjustment.getFajr() : method.getFajr();
+    };
+
+    var getSunrise = function() {
+      return adjustment.getSunrise();
+    };
+
+    var getDhuhr = function() {
+      return adjustment.getDhuhr();
+    };
+
+    var getAsr = function() {
+      return adjustment.getAsr();
+    };
+
+    var getMaghrib = function() {
+      return method == praytimes.MethodSetting.CUSTOM ? adjustment.getMaghrib() : method.getMaghrib();
+    };
+
+    var getIsha = function() {
+      return method == praytimes.MethodSetting.CUSTOM ? adjustment.getIsha() : method.getIsha();
+    };
+
+    var getMidnight = function() {
+      return method == praytimes.MethodSetting.CUSTOM ? adjustment.getMidnight() : method.getMidnight();
     };
 
     var getHighLats = function() {
@@ -71,7 +105,15 @@ praytimes.CalculationSetting = function(method) {
     that.getMethod = getMethod;
     that.setMethod = setMethod;
     that.getAdjustment = getAdjustment;
-    that.getHighLats = getHighLat;
+    that.getImsak = getImsak;
+    that.getFajr = getFajr;
+    that.getSunrise = getSunrise;
+    that.getDhuhr = getDhuhr;
+    that.getAsr = getAsr;
+    that.getMaghrib = getMaghrib;
+    that.getIsha = getIsha;
+    that.getMidnight = getMidnight;
+    that.getHighLats = getHighLats;
     that.setHighLats = setHighLats;
     that.getNumIterations = getNumIterations;
     that.setNumIterations = setNumIterations;

@@ -1,7 +1,7 @@
 /* ----< Copyright Block >----
  *
  * Prayer Times Calculator
- *     CalcMethod.js
+ *     MethodSetting.js
  *     Copyright (C) 2015
  *     Mohsen Izadi <m.izadi@gmail.com>
  *
@@ -27,8 +27,8 @@
 
 var praytimes = praytimes || {};
 
-praytimes.CalcMethod = function() {
-  var create(fajr, maghrib, isha, midnight) {
+praytimes.MethodSetting = function() {
+  var create = function(fajr, maghrib, isha, midnight) {
     var that = {};
 
     var getFajr = function() {
@@ -59,9 +59,9 @@ praytimes.CalcMethod = function() {
                    praytimes.MaghribSetting.DEFAULT,
                    praytimes.IshaSetting.createTwilightAngleBased(17),
                    praytimes.MidnightSetting.STANDARD_METHOD);
-  var ISNA = create(praytimes.FajrSetting.create(15.0),
+  var ISNA = create(praytimes.FajrSetting.create(15),
                     praytimes.MaghribSetting.DEFAULT,
-                    praytimes.IshaSetting.createTwilightAngleBased(15.0),
+                    praytimes.IshaSetting.createTwilightAngleBased(15),
                     praytimes.MidnightSetting.STANDARD_METHOD);
   var EGYPT = create(praytimes.FajrSetting.create(19.5),
                      praytimes.MaghribSetting.DEFAULT,
@@ -69,21 +69,21 @@ praytimes.CalcMethod = function() {
                      praytimes.MidnightSetting.STANDARD_METHOD);
   var MAKKAH = create(praytimes.FajrSetting.create(18.5),
                       praytimes.MaghribSetting.DEFAULT,
-                      praytimes.IshaSetting.createMaghribBased(90.0),
+                      praytimes.IshaSetting.createMaghribBased(90),
                       praytimes.MidnightSetting.STANDARD_METHOD);
-  var KARACHI = create(praytimes.FajrSetting.create(18.0),
+  var KARACHI = create(praytimes.FajrSetting.create(18),
                        praytimes.MaghribSetting.DEFAULT,
-                       praytimes.IshaSetting.createTwilightAngleBased(18.0),
+                       praytimes.IshaSetting.createTwilightAngleBased(18),
                        praytimes.MidnightSetting.STANDARD_METHOD);
   var TEHRAN = create(praytimes.FajrSetting.create(17.7),
                       praytimes.MaghribSetting.createTwilightAngleBased(4.5),
-                      praytimes.IshaSetting.createTwilightAngleBased(14.0),
+                      praytimes.IshaSetting.createTwilightAngleBased(14),
                       praytimes.MidnightSetting.JAFARI_METHOD);
   var JAFARI = create(praytimes.FajrSetting.create(16),
                       praytimes.MaghribSetting.createTwilightAngleBased(4),
                       praytimes.IshaSetting.createTwilightAngleBased(14.4),
                       praytimes.MidnightSetting.JAFARI_METHOD);
-  var CUSTOM = create(null, null, null, null);
+  var CUSTOM = create();
 
   return {
     MWL: MWL,
