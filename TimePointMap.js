@@ -96,8 +96,54 @@ praytimes.TimePointMap = function() {
       };
     };
 
+    var inmap = function(map) {
+      if (imsakValue != undefined)
+        imsakValue = map(praytimes.TimePoint.IMSAK, imsakValue);
+      if (fajrValue != undefined)
+        fajrValue = map(praytimes.TimePoint.FAJR, fajrValue);
+      if (sunriseValue != undefined)
+        sunriseValue = map(praytimes.TimePoint.SUNRISE, sunriseValue);
+      if (dhuhrValue != undefined)
+        dhuhrValue = map(praytimes.TimePoint.DHUHR, dhuhrValue);
+      if (asrValue != undefined)
+        asrValue = map(praytimes.TimePoint.ASR, asrValue);
+      if (sunsetValue != undefined)
+        sunsetValue = map(praytimes.TimePoint.SUNSET, sunsetValue);
+      if (maghribValue != undefined)
+        maghribValue = map(praytimes.TimePoint.MAGHRIB, maghribValue);
+      if (ishaValue != undefined)
+        ishaValue = map(praytimes.TimePoint.ISHA, ishaValue);
+      if (midnightValue != undefined)
+        midnightValue = map(praytimes.TimePoint.MIDNIGHT, midnightValue);
+    };
+
+    var outmap = function(map) {
+      var result = create();
+      if (imsakValue != undefined)
+        result.set(praytimes.TimePoint.IMSAK, map(praytimes.TimePoint.IMSAK, imsakValue));
+      if (fajrValue != undefined)
+        result.set(praytimes.TimePoint.FAJR, map(praytimes.TimePoint.FAJR, fajrValue));
+      if (sunriseValue != undefined)
+        result.set(praytimes.TimePoint.SUNRISE, map(praytimes.TimePoint.SUNRISE, sunriseValue));
+      if (dhuhrValue != undefined)
+        result.set(praytimes.TimePoint.DHUHR, map(praytimes.TimePoint.DHUHR, dhuhrValue));
+      if (asrValue != undefined)
+        result.set(praytimes.TimePoint.ASR, map(praytimes.TimePoint.ASR, asrValue));
+      if (sunsetValue != undefined)
+        result.set(praytimes.TimePoint.SUNSET, map(praytimes.TimePoint.SUNSET, sunsetValue));
+      if (maghribValue != undefined)
+        result.set(praytimes.TimePoint.MAGHRIB, map(praytimes.TimePoint.MAGHRIB, maghribValue));
+      if (ishaValue != undefined)
+        result.set(praytimes.TimePoint.ISHA, map(praytimes.TimePoint.ISHA, ishaValue));
+      if (midnightValue != undefined)
+        result.set(praytimes.TimePoint.MIDNIGHT, map(praytimes.TimePoint.MIDNIGHT, midnightValue));
+      return result;
+    };
+
     that.get = get;
     that.set = set;
+    that.inmap = inmap;
+    that.outmap = outmap;
 
     return that;
   };

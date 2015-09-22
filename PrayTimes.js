@@ -72,14 +72,9 @@ praytimes.PrayTimes = function() {
     };
 
     var dayPortions = function(times) {
-      times.set(praytimes.TimePoint.IMSAK, times.get(praytimes.TimePoint.IMSAK) / 24);
-      times.set(praytimes.TimePoint.FAJR, times.get(praytimes.TimePoint.FAJR) / 24);
-      times.set(praytimes.TimePoint.SUNRISE, times.get(praytimes.TimePoint.SUNRISE) / 24);
-      times.set(praytimes.TimePoint.DHUHR, times.get(praytimes.TimePoint.DHUHR) / 24);
-      times.set(praytimes.TimePoint.ASR, times.get(praytimes.TimePoint.ASR) / 24);
-      times.set(praytimes.TimePoint.SUNSET, times.get(praytimes.TimePoint.SUNSET) / 24);
-      times.set(praytimes.TimePoint.MAGHRIB, times.get(praytimes.TimePoint.MAGHRIB) / 24);
-      times.set(praytimes.TimePoint.ISHA, times.get(praytimes.TimePoint.ISHA) / 24);
+      times.inmap(function(timePoint, value) {
+        return value / 24;
+      });
     };
 
     var sunPosition = function(jDate) {
@@ -128,35 +123,32 @@ praytimes.PrayTimes = function() {
 
     var computePrayerTimes = function(coords, jDate, times) {
       dayPortions(times);
-      if (calculation.getImsak().getType() == praytimes.ImsakSetting.Type.TWILIGHT_ANGLE_BASED) {
-        times.set(praytimes.TimePoint.IMSAK,
-                  sunAngleTime(coords, jDate, calculation.getImsak().getTwilightAngle(),
-                               times.get(praytimes.TimePoint.IMSAK), true));
-      }
-      times.set(praytimes.TimePoint.FAJR,
-                sunAngleTime(coords, jDate, calculation.getFajr().getTwilightAngle(),
-                             times.get(praytimes.TimePoint.FAJR), true));
-      times.set(praytimes.TimePoint.SUNRISE,
-                sunAngleTime(coords, jDate, riseSetAngle(coords),
-                             times.get(praytimes.TimePoint.SUNRISE), true));
-      times.set(praytimes.TimePoint.DHUHR,
-                midDay(jDate, times.get(praytimes.TimePoint.DHUHR)));
-      times.set(praytimes.TimePoint.ASR,
-                asrTime(coords, jDate, calculation.getAsr().getShadowFactor(),
-                        times.get(praytimes.TimePoint.ASR)));
-      times.set(praytimes.TimePoint.SUNSET,
-                sunAngleTime(coords, jDate, riseSetAngle(coords),
-                             times.get(praytimes.TimePoint.SUNSET), false));
-      if (calculation.getMaghrib().getType() == praytimes.MaghribSetting.Type.TWILIGHT_ANGLE_BASED) {
-        times.set(praytimes.TimePoint.MAGHRIB,
-                  sunAngleTime(coords, jDate, calculation.getMaghrib().getTwilightAngle(),
-                               times.get(praytimes.TimePoint.MAGHRIB), false));
-      }
-      if (calculation.getIsha().getType() == praytimes.IshaSetting.Type.TWILIGHT_ANGLE_BASED) {
-        times.set(praytimes.TimePoint.ISHA,
-                  sunAngleTime(coords, jDate, calculation.getIsha().getTwilightAngle(),
-                  times.get(praytimes.TimePoint.ISHA), false));
-      }
+      times.inmap(function(timePoint, value) {
+        switch (timePoint) {
+        case praytimes.TimePoint.IMSAK:
+          if (calculation.getImsak().getType() == praytimes.ImsakSetting.Type.TWILIGHT_ANGLE_BASED)
+            return sunAngleTime(coords, jDate, calculation.getImsak().getTwilightAngle(), value, true);
+          return value;
+        case praytimes.TimePoint.FAJR:
+          return sunAngleTime(coords, jDate, calculation.getFajr().getTwilightAngle(), value, true);
+        case praytimes.TimePoint.SUNRISE:
+          return sunAngleTime(coords, jDate, riseSetAngle(coords), value, true);
+        case praytimes.TimePoint.DHUHR:
+          return midDay(jDate, value);
+        case praytimes.TimePoint.ASR:
+          return asrTime(coords, jDate, calculation.getAsr().getShadowFactor(), value);
+        case praytimes.TimePoint.SUNSET:
+          return sunAngleTime(coords, jDate, riseSetAngle(coords), value, false);
+        case praytimes.TimePoint.MAGHRIB:
+          if (calculation.getMaghrib().getType() == praytimes.MaghribSetting.Type.TWILIGHT_ANGLE_BASED)
+            return sunAngleTime(coords, jDate, calculation.getMaghrib().getTwilightAngle(), value, false);
+          return value;
+        case praytimes.TimePoint.ISHA:
+          if (calculation.getIsha().getType() == praytimes.IshaSetting.Type.TWILIGHT_ANGLE_BASED)
+            return sunAngleTime(coords, jDate, calculation.getIsha().getTwilightAngle(), value, false);
+          return value;
+        }
+      });
     };
 
     var nightPortion = function(angle, night) {
@@ -214,22 +206,9 @@ praytimes.PrayTimes = function() {
     };
 
     var adjustTimes = function(times, coords) {
-      times.set(praytimes.TimePoint.IMSAK,
-                times.get(praytimes.TimePoint.IMSAK) - coords.getLongitude() / 15);
-      times.set(praytimes.TimePoint.FAJR,
-                times.get(praytimes.TimePoint.FAJR) - coords.getLongitude() / 15);
-      times.set(praytimes.TimePoint.SUNRISE,
-                times.get(praytimes.TimePoint.SUNRISE) - coords.getLongitude() / 15);
-      times.set(praytimes.TimePoint.DHUHR,
-                times.get(praytimes.TimePoint.DHUHR) - coords.getLongitude() / 15);
-      times.set(praytimes.TimePoint.ASR,
-                times.get(praytimes.TimePoint.ASR) - coords.getLongitude() / 15);
-      times.set(praytimes.TimePoint.SUNSET,
-                times.get(praytimes.TimePoint.SUNSET) - coords.getLongitude() / 15);
-      times.set(praytimes.TimePoint.MAGHRIB,
-                times.get(praytimes.TimePoint.MAGHRIB) - coords.getLongitude() / 15);
-      times.set(praytimes.TimePoint.ISHA,
-                times.get(praytimes.TimePoint.ISHA) - coords.getLongitude() / 15);
+      times.inmap(function(timePoint, value) {
+        return value - coords.getLongitude() / 15;
+      });
       if (calculation.getHighLats() != praytimes.HigherLatitudesSetting.NONE)
         adjustHighLats(times);
       if (calculation.getImsak().getType() == praytimes.ImsakSetting.Type.FAJR_BASED) {
@@ -249,33 +228,9 @@ praytimes.PrayTimes = function() {
     };
 
     var tuneTimes = function(times) {
-      times.set(praytimes.TimePoint.IMSAK,
-                times.get(praytimes.TimePoint.IMSAK) +
-                          calculation.getTuning().getOffset(praytimes.TimePoint.IMSAK) / 60);
-      times.set(praytimes.TimePoint.FAJR,
-                times.get(praytimes.TimePoint.FAJR) +
-                          calculation.getTuning().getOffset(praytimes.TimePoint.FAJR) / 60);
-      times.set(praytimes.TimePoint.SUNRISE,
-                times.get(praytimes.TimePoint.SUNRISE) +
-                          calculation.getTuning().getOffset(praytimes.TimePoint.SUNRISE) / 60);
-      times.set(praytimes.TimePoint.DHUHR,
-                times.get(praytimes.TimePoint.DHUHR) +
-                          calculation.getTuning().getOffset(praytimes.TimePoint.DHUHR) / 60);
-      times.set(praytimes.TimePoint.ASR,
-                times.get(praytimes.TimePoint.ASR) +
-                          calculation.getTuning().getOffset(praytimes.TimePoint.ASR) / 60);
-      times.set(praytimes.TimePoint.SUNSET,
-                times.get(praytimes.TimePoint.SUNSET) +
-                          calculation.getTuning().getOffset(praytimes.TimePoint.SUNSET) / 60);
-      times.set(praytimes.TimePoint.MAGHRIB,
-                times.get(praytimes.TimePoint.MAGHRIB) +
-                          calculation.getTuning().getOffset(praytimes.TimePoint.MAGHRIB) / 60);
-      times.set(praytimes.TimePoint.ISHA,
-                times.get(praytimes.TimePoint.ISHA) +
-                          calculation.getTuning().getOffset(praytimes.TimePoint.ISHA) / 60);
-      times.set(praytimes.TimePoint.MIDNIGHT,
-                times.get(praytimes.TimePoint.MIDNIGHT) +
-                          calculation.getTuning().getOffset(praytimes.TimePoint.MIDNIGHT) / 60);
+      times.inmap(function(timePoint, value) {
+        return value + calculation.getTuning().getOffset(timePoint) / 60;
+      });
     };
 
     var computeTimes = function(coords, jDate) {
@@ -304,35 +259,10 @@ praytimes.PrayTimes = function() {
     var getTimes = function(date, coords) {
       var times = computeTimes(coords, julian(date) - coords.getLongitude() / (15 * 24));
 
-      var result = praytimes.TimePointMap.create();
-      result.set(praytimes.TimePoint.IMSAK,
-                 new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(), 0, 0, 0,
-                                   times.get(praytimes.TimePoint.IMSAK) * 60 * 60 * 1000)));
-      result.set(praytimes.TimePoint.FAJR,
-                 new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(), 0, 0, 0,
-                                   times.get(praytimes.TimePoint.FAJR) * 60 * 60 * 1000)));
-      result.set(praytimes.TimePoint.SUNRISE,
-                 new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(), 0, 0, 0,
-                                   times.get(praytimes.TimePoint.SUNRISE) * 60 * 60 * 1000)));
-      result.set(praytimes.TimePoint.DHUHR,
-                 new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(), 0, 0, 0,
-                                   times.get(praytimes.TimePoint.DHUHR) * 60 * 60 * 1000)));
-      result.set(praytimes.TimePoint.ASR,
-                 new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(), 0, 0, 0,
-                                   times.get(praytimes.TimePoint.ASR) * 60 * 60 * 1000)));
-      result.set(praytimes.TimePoint.SUNSET,
-                 new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(), 0, 0, 0,
-                                   times.get(praytimes.TimePoint.SUNSET) * 60 * 60 * 1000)));
-      result.set(praytimes.TimePoint.MAGHRIB,
-                 new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(), 0, 0, 0,
-                                   times.get(praytimes.TimePoint.MAGHRIB) * 60 * 60 * 1000)));
-      result.set(praytimes.TimePoint.ISHA,
-                 new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(), 0, 0, 0,
-                                   times.get(praytimes.TimePoint.ISHA) * 60 * 60 * 1000)));
-      result.set(praytimes.TimePoint.MIDNIGHT,
-                 new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(), 0, 0, 0,
-                                   times.get(praytimes.TimePoint.MIDNIGHT) * 60 * 60 * 1000)));
-                 
+      var result = times.outmap(function(timePoint, value) {
+        return new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(),
+                                 0, 0, 0, value * 60 * 60 * 1000));
+      });
       return result;
     };
 
