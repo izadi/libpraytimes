@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.PrayTimes = function() {
+libpraytimes.PrayTimes = function() {
   var SunPosition = function() {
     var create = function(declination, equaiton) {
       var that = {};
@@ -55,7 +55,7 @@ praytimes.PrayTimes = function() {
     var that = {};
 
     var timeDiff = function(time1, time2) {
-      return praytimes.DegMath.fixHour(time2 - time1);
+      return libpraytimes.DegMath.fixHour(time2 - time1);
     };
 
     var julian = function(date) {
@@ -79,34 +79,34 @@ praytimes.PrayTimes = function() {
 
     var sunPosition = function(jDate) {
       var d = jDate - 2451545.0;
-      var g = praytimes.DegMath.fixAngle(357.529 + 0.98560028 * d);
-      var q = praytimes.DegMath.fixAngle(280.459 + 0.98564736 * d);
-      var l = praytimes.DegMath.fixAngle(
-          q + 1.915 * praytimes.DegMath.sin(g) + 0.020 * praytimes.DegMath.sin(2 * g));
+      var g = libpraytimes.DegMath.fixAngle(357.529 + 0.98560028 * d);
+      var q = libpraytimes.DegMath.fixAngle(280.459 + 0.98564736 * d);
+      var l = libpraytimes.DegMath.fixAngle(
+          q + 1.915 * libpraytimes.DegMath.sin(g) + 0.020 * libpraytimes.DegMath.sin(2 * g));
 
-      //double r = 1.00014 - 0.01671 * praytimes.DegMath.cos(g) - 0.00014 * praytimes.DegMath.cos(2 * g);
+      //double r = 1.00014 - 0.01671 * libpraytimes.DegMath.cos(g) -
+      //           0.00014 * libpraytimes.DegMath.cos(2 * g);
       var e = 23.439 - 0.00000036 * d;
 
-      var ra = praytimes.DegMath.arctan2(praytimes.DegMath.cos(e) * praytimes.DegMath.sin(l),
-                                         praytimes.DegMath.cos(l)) / 15;
-      var eqt = q / 15 - praytimes.DegMath.fixHour(ra);
-      var decl = praytimes.DegMath.arcsin(
-          praytimes.DegMath.sin(e) * praytimes.DegMath.sin(l));
+      var ra = libpraytimes.DegMath.arctan2(libpraytimes.DegMath.cos(e) * libpraytimes.DegMath.sin(l),
+                                            libpraytimes.DegMath.cos(l)) / 15;
+      var eqt = q / 15 - libpraytimes.DegMath.fixHour(ra);
+      var decl = libpraytimes.DegMath.arcsin(libpraytimes.DegMath.sin(e) * libpraytimes.DegMath.sin(l));
 
       return SunPosition.create(decl, eqt);
     };
 
     var midDay = function(jDate, time) {
       var eqt = sunPosition(jDate + time).getEquation();
-      return praytimes.DegMath.fixHour(12 - eqt);
+      return libpraytimes.DegMath.fixHour(12 - eqt);
     };
 
     var sunAngleTime = function(coords, jDate, angle, time, ccw) {
       var decl = sunPosition(jDate + time).getDeclination();
       var noon = midDay(jDate, time);
-      var t = 1 / 15 * praytimes.DegMath.arccos(
-          (-praytimes.DegMath.sin(angle) - praytimes.DegMath.sin(decl) * praytimes.DegMath.sin(coords.getLatitude())) /
-          (praytimes.DegMath.cos(decl) * praytimes.DegMath.cos(coords.getLatitude())));
+      var t = 1 / 15 * libpraytimes.DegMath.arccos(
+          (-libpraytimes.DegMath.sin(angle) - libpraytimes.DegMath.sin(decl) * libpraytimes.DegMath.sin(coords.getLatitude())) /
+          (libpraytimes.DegMath.cos(decl) * libpraytimes.DegMath.cos(coords.getLatitude())));
       return noon + (ccw ? -t : t);
     };
 
@@ -117,7 +117,7 @@ praytimes.PrayTimes = function() {
 
     var asrTime = function(coords, jDate, factor, time) {
       var decl = sunPosition(jDate + time).getDeclination();
-      var angle = -praytimes.DegMath.arccot(factor + praytimes.DegMath.tan(Math.abs(coords.getLatitude() - decl)));
+      var angle = -libpraytimes.DegMath.arccot(factor + libpraytimes.DegMath.tan(Math.abs(coords.getLatitude() - decl)));
       return sunAngleTime(coords, jDate, angle, time, false);
     };
 
@@ -125,26 +125,26 @@ praytimes.PrayTimes = function() {
       dayPortions(times);
       times.inmap(function(timePoint, value) {
         switch (timePoint) {
-        case praytimes.TimePoint.IMSAK:
-          if (calculation.getImsak().getType() == praytimes.ImsakSetting.Type.TWILIGHT_ANGLE_BASED)
+        case libpraytimes.TimePoint.IMSAK:
+          if (calculation.getImsak().getType() == libpraytimes.ImsakSetting.Type.TWILIGHT_ANGLE_BASED)
             return sunAngleTime(coords, jDate, calculation.getImsak().getTwilightAngle(), value, true);
           return value;
-        case praytimes.TimePoint.FAJR:
+        case libpraytimes.TimePoint.FAJR:
           return sunAngleTime(coords, jDate, calculation.getFajr().getTwilightAngle(), value, true);
-        case praytimes.TimePoint.SUNRISE:
+        case libpraytimes.TimePoint.SUNRISE:
           return sunAngleTime(coords, jDate, riseSetAngle(coords), value, true);
-        case praytimes.TimePoint.DHUHR:
+        case libpraytimes.TimePoint.DHUHR:
           return midDay(jDate, value);
-        case praytimes.TimePoint.ASR:
+        case libpraytimes.TimePoint.ASR:
           return asrTime(coords, jDate, calculation.getAsr().getShadowFactor(), value);
-        case praytimes.TimePoint.SUNSET:
+        case libpraytimes.TimePoint.SUNSET:
           return sunAngleTime(coords, jDate, riseSetAngle(coords), value, false);
-        case praytimes.TimePoint.MAGHRIB:
-          if (calculation.getMaghrib().getType() == praytimes.MaghribSetting.Type.TWILIGHT_ANGLE_BASED)
+        case libpraytimes.TimePoint.MAGHRIB:
+          if (calculation.getMaghrib().getType() == libpraytimes.MaghribSetting.Type.TWILIGHT_ANGLE_BASED)
             return sunAngleTime(coords, jDate, calculation.getMaghrib().getTwilightAngle(), value, false);
           return value;
-        case praytimes.TimePoint.ISHA:
-          if (calculation.getIsha().getType() == praytimes.IshaSetting.Type.TWILIGHT_ANGLE_BASED)
+        case libpraytimes.TimePoint.ISHA:
+          if (calculation.getIsha().getType() == libpraytimes.IshaSetting.Type.TWILIGHT_ANGLE_BASED)
             return sunAngleTime(coords, jDate, calculation.getIsha().getTwilightAngle(), value, false);
           return value;
         }
@@ -153,9 +153,9 @@ praytimes.PrayTimes = function() {
 
     var nightPortion = function(angle, night) {
       switch (calculation.getHighLats()) {
-      case praytimes.HigherLatitudesSetting.ANGLE_BASED_METHOD:
+      case libpraytimes.HigherLatitudesSetting.ANGLE_BASED_METHOD:
         return night * angle / 60;
-      case praytimes.HigherLatitudesSetting.ONE_SEVENTH_METHOD:
+      case libpraytimes.HigherLatitudesSetting.ONE_SEVENTH_METHOD:
         return night / 7;
       default:
         return night / 2;
@@ -171,34 +171,34 @@ praytimes.PrayTimes = function() {
     };
 
     var adjustHighLats = function(times) {
-      var nightTime = timeDiff(times.get(praytimes.TimePoint.SUNSET),
-                               times.get(praytimes.TimePoint.SUNRISE));
-      if (calculation.getImsak().getType() == praytimes.ImsakSetting.Type.TWILIGHT_ANGLE_BASED) {
-        times.set(praytimes.TimePoint.IMSAK,
-                  adjustHlTime(times.get(praytimes.TimePoint.IMSAK),
-                               times.get(praytimes.TimePoint.SUNRISE),
+      var nightTime = timeDiff(times.get(libpraytimes.TimePoint.SUNSET),
+                               times.get(libpraytimes.TimePoint.SUNRISE));
+      if (calculation.getImsak().getType() == libpraytimes.ImsakSetting.Type.TWILIGHT_ANGLE_BASED) {
+        times.set(libpraytimes.TimePoint.IMSAK,
+                  adjustHlTime(times.get(libpraytimes.TimePoint.IMSAK),
+                               times.get(libpraytimes.TimePoint.SUNRISE),
                                calculation.getImsak().getTwilightAngle(),
                                nightTime,
                                true));
       }
-      times.set(praytimes.TimePoint.FAJR,
-                adjustHlTime(times.get(praytimes.TimePoint.FAJR),
-                             times.get(praytimes.TimePoint.SUNRISE),
+      times.set(libpraytimes.TimePoint.FAJR,
+                adjustHlTime(times.get(libpraytimes.TimePoint.FAJR),
+                             times.get(libpraytimes.TimePoint.SUNRISE),
                              calculation.getFajr().getTwilightAngle(),
                              nightTime,
                              true));
-      if (calculation.getIsha().getType() == praytimes.IshaSetting.Type.TWILIGHT_ANGLE_BASED) {
-        times.set(praytimes.TimePoint.ISHA,
-                  adjustHlTime(times.get(praytimes.TimePoint.ISHA),
-                               times.get(praytimes.TimePoint.SUNSET),
+      if (calculation.getIsha().getType() == libpraytimes.IshaSetting.Type.TWILIGHT_ANGLE_BASED) {
+        times.set(libpraytimes.TimePoint.ISHA,
+                  adjustHlTime(times.get(libpraytimes.TimePoint.ISHA),
+                               times.get(libpraytimes.TimePoint.SUNSET),
                                calculation.getIsha().getTwilightAngle(),
                                nightTime,
                                false));
       }
-      if (calculation.getMaghrib().getType() == praytimes.MaghribSetting.Type.TWILIGHT_ANGLE_BASED) {
-        times.set(praytimes.TimePoint.MAGHRIB,
-                  adjustHlTime(times.get(praytimes.TimePoint.MAGHRIB),
-                               times.get(praytimes.TimePoint.SUNSET),
+      if (calculation.getMaghrib().getType() == libpraytimes.MaghribSetting.Type.TWILIGHT_ANGLE_BASED) {
+        times.set(libpraytimes.TimePoint.MAGHRIB,
+                  adjustHlTime(times.get(libpraytimes.TimePoint.MAGHRIB),
+                               times.get(libpraytimes.TimePoint.SUNSET),
                                calculation.getMaghrib().getTwilightAngle(),
                                nightTime,
                                false));
@@ -209,22 +209,22 @@ praytimes.PrayTimes = function() {
       times.inmap(function(timePoint, value) {
         return value - coords.getLongitude() / 15;
       });
-      if (calculation.getHighLats() != praytimes.HigherLatitudesSetting.NONE)
+      if (calculation.getHighLats() != libpraytimes.HigherLatitudesSetting.NONE)
         adjustHighLats(times);
-      if (calculation.getImsak().getType() == praytimes.ImsakSetting.Type.FAJR_BASED) {
-        times.set(praytimes.TimePoint.IMSAK,
-                  times.get(praytimes.TimePoint.FAJR) - calculation.getImsak().getMinutesBeforeFajr() / 60);
+      if (calculation.getImsak().getType() == libpraytimes.ImsakSetting.Type.FAJR_BASED) {
+        times.set(libpraytimes.TimePoint.IMSAK,
+                  times.get(libpraytimes.TimePoint.FAJR) - calculation.getImsak().getMinutesBeforeFajr() / 60);
       }
-      if (calculation.getMaghrib().getType() == praytimes.MaghribSetting.Type.SUNSET_BASED) {
-        times.set(praytimes.TimePoint.MAGHRIB,
-                  times.get(praytimes.TimePoint.SUNSET) + calculation.getMaghrib().getMinutesAfterSunset() / 60);
+      if (calculation.getMaghrib().getType() == libpraytimes.MaghribSetting.Type.SUNSET_BASED) {
+        times.set(libpraytimes.TimePoint.MAGHRIB,
+                  times.get(libpraytimes.TimePoint.SUNSET) + calculation.getMaghrib().getMinutesAfterSunset() / 60);
       }
-      if (calculation.getIsha().getType() == praytimes.IshaSetting.Type.MAGHRIB_BASED) {
-        times.set(praytimes.TimePoint.ISHA,
-                  times.get(praytimes.TimePoint.MAGHRIB) + calculation.getIsha().getMinutesAfterMaghrib() / 60);
+      if (calculation.getIsha().getType() == libpraytimes.IshaSetting.Type.MAGHRIB_BASED) {
+        times.set(libpraytimes.TimePoint.ISHA,
+                  times.get(libpraytimes.TimePoint.MAGHRIB) + calculation.getIsha().getMinutesAfterMaghrib() / 60);
       }
-      times.set(praytimes.TimePoint.DHUHR,
-                times.get(praytimes.TimePoint.DHUHR) + calculation.getDhuhr().getMinutesAfterMidDay() / 60);
+      times.set(libpraytimes.TimePoint.DHUHR,
+                times.get(libpraytimes.TimePoint.DHUHR) + calculation.getDhuhr().getMinutesAfterMidDay() / 60);
     };
 
     var tuneTimes = function(times) {
@@ -234,24 +234,24 @@ praytimes.PrayTimes = function() {
     };
 
     var computeTimes = function(coords, jDate) {
-      var times = praytimes.TimePointMap.create();
-      times.set(praytimes.TimePoint.IMSAK, 5);
-      times.set(praytimes.TimePoint.FAJR, 5);
-      times.set(praytimes.TimePoint.SUNRISE, 6);
-      times.set(praytimes.TimePoint.DHUHR, 12);
-      times.set(praytimes.TimePoint.ASR, 13);
-      times.set(praytimes.TimePoint.SUNSET, 18);
-      times.set(praytimes.TimePoint.MAGHRIB, 18);
-      times.set(praytimes.TimePoint.ISHA, 18);
+      var times = libpraytimes.TimePointMap.create();
+      times.set(libpraytimes.TimePoint.IMSAK, 5);
+      times.set(libpraytimes.TimePoint.FAJR, 5);
+      times.set(libpraytimes.TimePoint.SUNRISE, 6);
+      times.set(libpraytimes.TimePoint.DHUHR, 12);
+      times.set(libpraytimes.TimePoint.ASR, 13);
+      times.set(libpraytimes.TimePoint.SUNSET, 18);
+      times.set(libpraytimes.TimePoint.MAGHRIB, 18);
+      times.set(libpraytimes.TimePoint.ISHA, 18);
       for (var i = 0; i < calculation.getNumIterations(); i++)
         computePrayerTimes(coords, jDate, times);
       adjustTimes(times, coords);
-      times.set(praytimes.TimePoint.MIDNIGHT,
-                calculation.getMidnight() == praytimes.MidnightSetting.JAFARI_METHOD
-                    ? times.get(praytimes.TimePoint.MAGHRIB) +
-                      timeDiff(times.get(praytimes.TimePoint.MAGHRIB), times.get(praytimes.TimePoint.FAJR)) / 2
-                    : times.get(praytimes.TimePoint.SUNSET) +
-                      timeDiff(times.get(praytimes.TimePoint.SUNSET), times.get(praytimes.TimePoint.SUNRISE)) / 2);
+      times.set(libpraytimes.TimePoint.MIDNIGHT,
+                calculation.getMidnight() == libpraytimes.MidnightSetting.JAFARI_METHOD
+                    ? times.get(libpraytimes.TimePoint.MAGHRIB) +
+                      timeDiff(times.get(libpraytimes.TimePoint.MAGHRIB), times.get(libpraytimes.TimePoint.FAJR)) / 2
+                    : times.get(libpraytimes.TimePoint.SUNSET) +
+                      timeDiff(times.get(libpraytimes.TimePoint.SUNSET), times.get(libpraytimes.TimePoint.SUNRISE)) / 2);
       tuneTimes(times);
       return times;
     };

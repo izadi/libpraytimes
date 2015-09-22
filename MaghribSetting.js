@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.MaghribSetting = function() {
+libpraytimes.MaghribSetting = function() {
   var Type = {
     TWILIGHT_ANGLE_BASED: 'TWILIGHT_ANGLE_BASED',
     SUNSET_BASED: 'SUNSET_BASED',

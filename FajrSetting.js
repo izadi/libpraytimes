@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.FajrSetting = function() {
+libpraytimes.FajrSetting = function() {
   var create = function(twilightAngle) {
     var that = {};
 

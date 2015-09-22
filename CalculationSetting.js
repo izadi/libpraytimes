@@ -25,18 +25,18 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.CalculationSetting = function() {
+libpraytimes.CalculationSetting = function() {
   var create = function(method) {
     var that = {};
 
-    method = method || praytimes.MethodSetting.CUSTOM;
+    method = method || libpraytimes.MethodSetting.CUSTOM;
 
-    var adjustment = praytimes.AdjustmentSetting.create();
-    var highLats = praytimes.HigherLatitudesSetting.DEFAULT;
+    var adjustment = libpraytimes.AdjustmentSetting.create();
+    var highLats = libpraytimes.HigherLatitudesSetting.DEFAULT;
     var numIterations = 1;
-    var tuning = praytimes.TuningSetting.create();
+    var tuning = libpraytimes.TuningSetting.create();
 
     var getMethod = function() {
       return method;
@@ -55,7 +55,7 @@ praytimes.CalculationSetting = function() {
     };
 
     var getFajr = function() {
-      return method == praytimes.MethodSetting.CUSTOM ? adjustment.getFajr() : method.getFajr();
+      return method == libpraytimes.MethodSetting.CUSTOM ? adjustment.getFajr() : method.getFajr();
     };
 
     var getSunrise = function() {
@@ -71,15 +71,15 @@ praytimes.CalculationSetting = function() {
     };
 
     var getMaghrib = function() {
-      return method == praytimes.MethodSetting.CUSTOM ? adjustment.getMaghrib() : method.getMaghrib();
+      return method == libpraytimes.MethodSetting.CUSTOM ? adjustment.getMaghrib() : method.getMaghrib();
     };
 
     var getIsha = function() {
-      return method == praytimes.MethodSetting.CUSTOM ? adjustment.getIsha() : method.getIsha();
+      return method == libpraytimes.MethodSetting.CUSTOM ? adjustment.getIsha() : method.getIsha();
     };
 
     var getMidnight = function() {
-      return method == praytimes.MethodSetting.CUSTOM ? adjustment.getMidnight() : method.getMidnight();
+      return method == libpraytimes.MethodSetting.CUSTOM ? adjustment.getMidnight() : method.getMidnight();
     };
 
     var getHighLats = function() {

@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.DegMath = function() {
+libpraytimes.DegMath = function() {
   var dtr = function(d) {
     return (d * Math.PI) / 180;
   };

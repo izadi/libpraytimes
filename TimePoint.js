@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.TimePoint = function() {
+libpraytimes.TimePoint = function() {
   var IMSAK = 'IMSAK';
   var FAJR = 'FAJR';
   var SUNRISE = 'SUNRISE ';

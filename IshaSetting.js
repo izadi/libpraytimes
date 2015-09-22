@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.IshaSetting = function() {
+libpraytimes.IshaSetting = function() {
   var Type = {
     TWILIGHT_ANGLE_BASED: 'TWILIGHT_ANGLE_BASED',
     MAGHRIB_BASED: 'MAGHRIB_BASED',

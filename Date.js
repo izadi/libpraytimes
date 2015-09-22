@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.Date = function() {
+libpraytimes.Date = function() {
   var create = function(year, month, day) {
     var that = {};
 

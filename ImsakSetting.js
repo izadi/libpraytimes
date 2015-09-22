@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.ImsakSetting = function() {
+libpraytimes.ImsakSetting = function() {
   var Type = {
     TWILIGHT_ANGLE_BASED: 'TWILIGHT_ANGLE_BASED',
     FAJR_BASED: 'FAJR_BASED',

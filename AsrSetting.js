@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.AsrSetting = function() {
+libpraytimes.AsrSetting = function() {
   var create = function(shadowFactor) {
     var that = {};
 

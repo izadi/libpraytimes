@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.DhuhrSetting = function() {
+libpraytimes.DhuhrSetting = function() {
   var create = function(minutesAfterMidDay) {
     var that = {};
 

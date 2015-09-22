@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.TuningSetting = function() {
+libpraytimes.TuningSetting = function() {
   var create = function() {
     var that = {};
 

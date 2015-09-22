@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.Coords = function() {
+libpraytimes.Coords = function() {
   var create = function(latitude, longitude, elevation) {
     var that = {};
 

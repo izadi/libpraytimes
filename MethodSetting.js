@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.MethodSetting = function() {
+libpraytimes.MethodSetting = function() {
   var create = function(fajr, maghrib, isha, midnight) {
     var that = {};
 
@@ -55,34 +55,34 @@ praytimes.MethodSetting = function() {
     return that;
   };
 
-  var MWL = create(praytimes.FajrSetting.create(18),
-                   praytimes.MaghribSetting.DEFAULT,
-                   praytimes.IshaSetting.createTwilightAngleBased(17),
-                   praytimes.MidnightSetting.STANDARD_METHOD);
-  var ISNA = create(praytimes.FajrSetting.create(15),
-                    praytimes.MaghribSetting.DEFAULT,
-                    praytimes.IshaSetting.createTwilightAngleBased(15),
-                    praytimes.MidnightSetting.STANDARD_METHOD);
-  var EGYPT = create(praytimes.FajrSetting.create(19.5),
-                     praytimes.MaghribSetting.DEFAULT,
-                     praytimes.IshaSetting.createTwilightAngleBased(17.5),
-                     praytimes.MidnightSetting.STANDARD_METHOD);
-  var MAKKAH = create(praytimes.FajrSetting.create(18.5),
-                      praytimes.MaghribSetting.DEFAULT,
-                      praytimes.IshaSetting.createMaghribBased(90),
-                      praytimes.MidnightSetting.STANDARD_METHOD);
-  var KARACHI = create(praytimes.FajrSetting.create(18),
-                       praytimes.MaghribSetting.DEFAULT,
-                       praytimes.IshaSetting.createTwilightAngleBased(18),
-                       praytimes.MidnightSetting.STANDARD_METHOD);
-  var TEHRAN = create(praytimes.FajrSetting.create(17.7),
-                      praytimes.MaghribSetting.createTwilightAngleBased(4.5),
-                      praytimes.IshaSetting.createTwilightAngleBased(14),
-                      praytimes.MidnightSetting.JAFARI_METHOD);
-  var JAFARI = create(praytimes.FajrSetting.create(16),
-                      praytimes.MaghribSetting.createTwilightAngleBased(4),
-                      praytimes.IshaSetting.createTwilightAngleBased(14.4),
-                      praytimes.MidnightSetting.JAFARI_METHOD);
+  var MWL = create(libpraytimes.FajrSetting.create(18),
+                   libpraytimes.MaghribSetting.DEFAULT,
+                   libpraytimes.IshaSetting.createTwilightAngleBased(17),
+                   libpraytimes.MidnightSetting.STANDARD_METHOD);
+  var ISNA = create(libpraytimes.FajrSetting.create(15),
+                    libpraytimes.MaghribSetting.DEFAULT,
+                    libpraytimes.IshaSetting.createTwilightAngleBased(15),
+                    libpraytimes.MidnightSetting.STANDARD_METHOD);
+  var EGYPT = create(libpraytimes.FajrSetting.create(19.5),
+                     libpraytimes.MaghribSetting.DEFAULT,
+                     libpraytimes.IshaSetting.createTwilightAngleBased(17.5),
+                     libpraytimes.MidnightSetting.STANDARD_METHOD);
+  var MAKKAH = create(libpraytimes.FajrSetting.create(18.5),
+                      libpraytimes.MaghribSetting.DEFAULT,
+                      libpraytimes.IshaSetting.createMaghribBased(90),
+                      libpraytimes.MidnightSetting.STANDARD_METHOD);
+  var KARACHI = create(libpraytimes.FajrSetting.create(18),
+                       libpraytimes.MaghribSetting.DEFAULT,
+                       libpraytimes.IshaSetting.createTwilightAngleBased(18),
+                       libpraytimes.MidnightSetting.STANDARD_METHOD);
+  var TEHRAN = create(libpraytimes.FajrSetting.create(17.7),
+                      libpraytimes.MaghribSetting.createTwilightAngleBased(4.5),
+                      libpraytimes.IshaSetting.createTwilightAngleBased(14),
+                      libpraytimes.MidnightSetting.JAFARI_METHOD);
+  var JAFARI = create(libpraytimes.FajrSetting.create(16),
+                      libpraytimes.MaghribSetting.createTwilightAngleBased(4),
+                      libpraytimes.IshaSetting.createTwilightAngleBased(14.4),
+                      libpraytimes.MidnightSetting.JAFARI_METHOD);
   var CUSTOM = create();
 
   return {

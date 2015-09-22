@@ -25,19 +25,19 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.AdjustmentSetting = function() {
+libpraytimes.AdjustmentSetting = function() {
   var create = function() {
     var that = {};
 
-    var imsak = praytimes.ImsakSetting.DEFAULT;
-    var fajr = praytimes.FajrSetting.DEFAULT;
-    var dhuhr = praytimes.DhuhrSetting.DEFAULT;
-    var asr = praytimes.AsrSetting.DEFAULT;
-    var maghrib = praytimes.MaghribSetting.DEFAULT;
-    var isha = praytimes.IshaSetting.DEFAULT;
-    var midnight = praytimes.MidnightSetting.DEFAULT;
+    var imsak = libpraytimes.ImsakSetting.DEFAULT;
+    var fajr = libpraytimes.FajrSetting.DEFAULT;
+    var dhuhr = libpraytimes.DhuhrSetting.DEFAULT;
+    var asr = libpraytimes.AsrSetting.DEFAULT;
+    var maghrib = libpraytimes.MaghribSetting.DEFAULT;
+    var isha = libpraytimes.IshaSetting.DEFAULT;
+    var midnight = libpraytimes.MidnightSetting.DEFAULT;
 
     var getImsak = function() {
       return imsak;

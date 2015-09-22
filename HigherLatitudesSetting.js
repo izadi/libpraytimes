@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.HigherLatitudesSetting = function() {
+libpraytimes.HigherLatitudesSetting = function() {
   var NIGHT_MIDDLE_METHOD = 'NIGHT_MIDDLE_METHOD ';
   var ANGLE_BASED_METHOD = 'ANGLE_BASED_METHOD ';
   var ONE_SEVENTH_METHOD = 'ONE_SEVENTH_METHOD ';

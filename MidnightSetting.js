@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.MidnightSetting = function() {
+libpraytimes.MidnightSetting = function() {
   var STANDARD_METHOD = 'STANDARD_METHOD';
   var HANAFI_METHOD = 'HANAFI_METHOD';
   var DEFAULT = STANDARD_METHOD;

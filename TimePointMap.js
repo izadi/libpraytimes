@@ -25,9 +25,9 @@
  *
  */
 
-var praytimes = praytimes || {};
+var libpraytimes = libpraytimes || {};
 
-praytimes.TimePointMap = function() {
+libpraytimes.TimePointMap = function() {
   var create = function() {
     var that = {};
 
@@ -43,54 +43,54 @@ praytimes.TimePointMap = function() {
 
     var get = function(timePoint) {
       switch (timePoint) {
-      case praytimes.TimePoint.IMSAK:
+      case libpraytimes.TimePoint.IMSAK:
         return imsakValue;
-      case praytimes.TimePoint.FAJR:
+      case libpraytimes.TimePoint.FAJR:
         return fajrValue;
-      case praytimes.TimePoint.SUNRISE:
+      case libpraytimes.TimePoint.SUNRISE:
         return sunriseValue;
-      case praytimes.TimePoint.DHUHR:
+      case libpraytimes.TimePoint.DHUHR:
         return dhuhrValue;
-      case praytimes.TimePoint.ASR:
+      case libpraytimes.TimePoint.ASR:
         return asrValue;
-      case praytimes.TimePoint.SUNSET:
+      case libpraytimes.TimePoint.SUNSET:
         return sunsetValue;
-      case praytimes.TimePoint.MAGHRIB:
+      case libpraytimes.TimePoint.MAGHRIB:
         return maghribValue;
-      case praytimes.TimePoint.ISHA:
+      case libpraytimes.TimePoint.ISHA:
         return ishaValue;
-      case praytimes.TimePoint.MIDNIGHT:
+      case libpraytimes.TimePoint.MIDNIGHT:
         return midnightValue;
       };
     };
 
     var set = function(timePoint, value) {
       switch (timePoint) {
-      case praytimes.TimePoint.IMSAK:
+      case libpraytimes.TimePoint.IMSAK:
         imsakValue = value;
         break;
-      case praytimes.TimePoint.FAJR:
+      case libpraytimes.TimePoint.FAJR:
         fajrValue = value;
         break;
-      case praytimes.TimePoint.SUNRISE:
+      case libpraytimes.TimePoint.SUNRISE:
         sunriseValue = value;
         break;
-      case praytimes.TimePoint.DHUHR:
+      case libpraytimes.TimePoint.DHUHR:
         dhuhrValue = value;
         break;
-      case praytimes.TimePoint.ASR:
+      case libpraytimes.TimePoint.ASR:
         asrValue = value;
         break;
-      case praytimes.TimePoint.SUNSET:
+      case libpraytimes.TimePoint.SUNSET:
         sunsetValue = value;
         break;
-      case praytimes.TimePoint.MAGHRIB:
+      case libpraytimes.TimePoint.MAGHRIB:
         maghribValue = value;
         break;
-      case praytimes.TimePoint.ISHA:
+      case libpraytimes.TimePoint.ISHA:
         ishaValue = value;
         break;
-      case praytimes.TimePoint.MIDNIGHT:
+      case libpraytimes.TimePoint.MIDNIGHT:
         midnightValue = value;
         break;
       };
@@ -98,45 +98,45 @@ praytimes.TimePointMap = function() {
 
     var inmap = function(map) {
       if (imsakValue != undefined)
-        imsakValue = map(praytimes.TimePoint.IMSAK, imsakValue);
+        imsakValue = map(libpraytimes.TimePoint.IMSAK, imsakValue);
       if (fajrValue != undefined)
-        fajrValue = map(praytimes.TimePoint.FAJR, fajrValue);
+        fajrValue = map(libpraytimes.TimePoint.FAJR, fajrValue);
       if (sunriseValue != undefined)
-        sunriseValue = map(praytimes.TimePoint.SUNRISE, sunriseValue);
+        sunriseValue = map(libpraytimes.TimePoint.SUNRISE, sunriseValue);
       if (dhuhrValue != undefined)
-        dhuhrValue = map(praytimes.TimePoint.DHUHR, dhuhrValue);
+        dhuhrValue = map(libpraytimes.TimePoint.DHUHR, dhuhrValue);
       if (asrValue != undefined)
-        asrValue = map(praytimes.TimePoint.ASR, asrValue);
+        asrValue = map(libpraytimes.TimePoint.ASR, asrValue);
       if (sunsetValue != undefined)
-        sunsetValue = map(praytimes.TimePoint.SUNSET, sunsetValue);
+        sunsetValue = map(libpraytimes.TimePoint.SUNSET, sunsetValue);
       if (maghribValue != undefined)
-        maghribValue = map(praytimes.TimePoint.MAGHRIB, maghribValue);
+        maghribValue = map(libpraytimes.TimePoint.MAGHRIB, maghribValue);
       if (ishaValue != undefined)
-        ishaValue = map(praytimes.TimePoint.ISHA, ishaValue);
+        ishaValue = map(libpraytimes.TimePoint.ISHA, ishaValue);
       if (midnightValue != undefined)
-        midnightValue = map(praytimes.TimePoint.MIDNIGHT, midnightValue);
+        midnightValue = map(libpraytimes.TimePoint.MIDNIGHT, midnightValue);
     };
 
     var outmap = function(map) {
       var result = create();
       if (imsakValue != undefined)
-        result.set(praytimes.TimePoint.IMSAK, map(praytimes.TimePoint.IMSAK, imsakValue));
+        result.set(libpraytimes.TimePoint.IMSAK, map(libpraytimes.TimePoint.IMSAK, imsakValue));
       if (fajrValue != undefined)
-        result.set(praytimes.TimePoint.FAJR, map(praytimes.TimePoint.FAJR, fajrValue));
+        result.set(libpraytimes.TimePoint.FAJR, map(libpraytimes.TimePoint.FAJR, fajrValue));
       if (sunriseValue != undefined)
-        result.set(praytimes.TimePoint.SUNRISE, map(praytimes.TimePoint.SUNRISE, sunriseValue));
+        result.set(libpraytimes.TimePoint.SUNRISE, map(libpraytimes.TimePoint.SUNRISE, sunriseValue));
       if (dhuhrValue != undefined)
-        result.set(praytimes.TimePoint.DHUHR, map(praytimes.TimePoint.DHUHR, dhuhrValue));
+        result.set(libpraytimes.TimePoint.DHUHR, map(libpraytimes.TimePoint.DHUHR, dhuhrValue));
       if (asrValue != undefined)
-        result.set(praytimes.TimePoint.ASR, map(praytimes.TimePoint.ASR, asrValue));
+        result.set(libpraytimes.TimePoint.ASR, map(libpraytimes.TimePoint.ASR, asrValue));
       if (sunsetValue != undefined)
-        result.set(praytimes.TimePoint.SUNSET, map(praytimes.TimePoint.SUNSET, sunsetValue));
+        result.set(libpraytimes.TimePoint.SUNSET, map(libpraytimes.TimePoint.SUNSET, sunsetValue));
       if (maghribValue != undefined)
-        result.set(praytimes.TimePoint.MAGHRIB, map(praytimes.TimePoint.MAGHRIB, maghribValue));
+        result.set(libpraytimes.TimePoint.MAGHRIB, map(libpraytimes.TimePoint.MAGHRIB, maghribValue));
       if (ishaValue != undefined)
-        result.set(praytimes.TimePoint.ISHA, map(praytimes.TimePoint.ISHA, ishaValue));
+        result.set(libpraytimes.TimePoint.ISHA, map(libpraytimes.TimePoint.ISHA, ishaValue));
       if (midnightValue != undefined)
-        result.set(praytimes.TimePoint.MIDNIGHT, map(praytimes.TimePoint.MIDNIGHT, midnightValue));
+        result.set(libpraytimes.TimePoint.MIDNIGHT, map(libpraytimes.TimePoint.MIDNIGHT, midnightValue));
       return result;
     };
 
