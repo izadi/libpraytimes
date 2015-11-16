@@ -59,16 +59,18 @@ libpraytimes.PrayTimes = function() {
     };
 
     var julian = function(date) {
-      var month = date.getMonth();
-      var year = date.getYear();
+      var day = date.getUTCDate();
+      var month = date.getUTCMonth() + 1;
+      var year = date.getUTCFullYear();
       if (month <= 2) {
         year--;
         month += 12;
       }
       var a = Math.floor(year / 100);
       var b = 2 - a + Math.floor(a / 4);
-      return Math.floor(365.25 * (year + 4716)) + Math.floor(30.6001 * (month + 1)) +
-        date.getDay() + b - 1524.5;
+      return Math.floor(365.25 * (year + 4716)) +
+             Math.floor(30.6001 * (month + 1)) +
+             day + b - 1524.5;
     };
 
     var dayPortions = function(times) {
@@ -260,8 +262,8 @@ libpraytimes.PrayTimes = function() {
       var times = computeTimes(coords, julian(date) - coords.getLongitude() / (15 * 24));
 
       var result = times.outmap(function(timePoint, value) {
-        return new Date(Date.UTC(date.getYear(), date.getMonth() - 1, date.getDay(),
-                                 0, 0, 0, value * 60 * 60 * 1000));
+        return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(),
+                                 date.getUTCDate(), 0, 0, 0, value * 60 * 60 * 1000));
       });
       return result;
     };
