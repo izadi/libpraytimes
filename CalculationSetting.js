@@ -58,10 +58,6 @@ libpraytimes.CalculationSetting = function() {
       return method == libpraytimes.MethodSetting.CUSTOM ? adjustment.getFajr() : method.getFajr();
     };
 
-    var getSunrise = function() {
-      return adjustment.getSunrise();
-    };
-
     var getDhuhr = function() {
       return adjustment.getDhuhr();
     };
@@ -107,7 +103,6 @@ libpraytimes.CalculationSetting = function() {
     that.getAdjustment = getAdjustment;
     that.getImsak = getImsak;
     that.getFajr = getFajr;
-    that.getSunrise = getSunrise;
     that.getDhuhr = getDhuhr;
     that.getAsr = getAsr;
     that.getMaghrib = getMaghrib;
